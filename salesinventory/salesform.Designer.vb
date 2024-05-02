@@ -47,6 +47,8 @@ Partial Class salesform
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.cmbcustomername = New Guna.UI2.WinForms.Guna2TextBox()
+        Me.cmbdiscount = New Guna.UI2.WinForms.Guna2ComboBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         CType(Me.gridviewsale, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
@@ -352,6 +354,8 @@ Partial Class salesform
         'Panel2
         '
         Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel2.Controls.Add(Me.Label3)
+        Me.Panel2.Controls.Add(Me.cmbdiscount)
         Me.Panel2.Controls.Add(Me.cmbcustomername)
         Me.Panel2.Controls.Add(Me.Guna2Button1)
         Me.Panel2.Controls.Add(Me.btnadd)
@@ -388,6 +392,33 @@ Partial Class salesform
         Me.cmbcustomername.Size = New System.Drawing.Size(369, 43)
         Me.cmbcustomername.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material
         Me.cmbcustomername.TabIndex = 79
+        '
+        'cmbdiscount
+        '
+        Me.cmbdiscount.BackColor = System.Drawing.Color.Transparent
+        Me.cmbdiscount.BorderColor = System.Drawing.Color.Black
+        Me.cmbdiscount.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
+        Me.cmbdiscount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbdiscount.FocusedColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbdiscount.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbdiscount.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.cmbdiscount.ForeColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(112, Byte), Integer))
+        Me.cmbdiscount.ItemHeight = 30
+        Me.cmbdiscount.Location = New System.Drawing.Point(26, 246)
+        Me.cmbdiscount.Name = "cmbdiscount"
+        Me.cmbdiscount.Size = New System.Drawing.Size(371, 36)
+        Me.cmbdiscount.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material
+        Me.cmbdiscount.TabIndex = 80
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(22, 221)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(76, 20)
+        Me.Label3.TabIndex = 81
+        Me.Label3.Text = "Discount"
         '
         'salesform
         '
@@ -440,4 +471,6 @@ Partial Class salesform
     Friend WithEvents Column3 As DataGridViewTextBoxColumn
     Friend WithEvents Column4 As DataGridViewTextBoxColumn
     Friend WithEvents Column5 As DataGridViewTextBoxColumn
+    Friend WithEvents Label3 As Label
+    Friend WithEvents cmbdiscount As Guna.UI2.WinForms.Guna2ComboBox
 End Class

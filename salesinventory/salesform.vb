@@ -14,18 +14,36 @@ Public Class salesform
 
     Private Sub salesform_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         PopulateProduct()
-
-        'cmbcustomername.SelectedValue = 0
+        populatediscount()
+        cmbdiscount.SelectedValue = 0
         cmbproductname.SelectedValue = 0
         cmbcustomername.Text = GetUniqueCustomerName()
         RadioButton1.Checked = True
     End Sub
 
+    Public Sub populatediscount()
+        Dim discountquery As String = "SELECT discount_id, CONCAT(discount_name, '(', discount_amount, '%)') AS display_name FROM tbldiscount"
+        Using connection As New SqlConnection(connectionStrings)
+            Dim discountadapter As New SqlDataAdapter(discountquery, connection)
+            Dim discounttable As New DataTable
+            discountadapter.Fill(discounttable)
+            cmbdiscount.DataSource = discounttable
+            cmbdiscount.DisplayMember = "display_name"
+            cmbdiscount.ValueMember = "discount_id"
+        End Using
+    End Sub
+
+    Private Sub cmbproductName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbproductname.SelectedIndexChanged
+        cmbdiscount.Enabled = productsDiscountStatus.ContainsKey(cmbproductname.Text) AndAlso productsDiscountStatus(cmbproductname.Text)
+        If Not cmbdiscount.Enabled Then
+            cmbdiscount.SelectedValue = 0
+        End If
+    End Sub
+
 
     Private Sub SearchByBarcode(barcode As String)
-        ' Check if the barcode is empty
         If String.IsNullOrEmpty(barcode) Then
-            Return ' Exit the function if barcode is empty
+            Return
         End If
 
         Dim productName As String = ""
@@ -265,6 +283,11 @@ Public Class salesform
         cmbproductname.DataSource = productTable
         cmbproductname.DisplayMember = "PRODUCT_NAME"
         cmbproductname.ValueMember = "ITEM_ID"
+        For Each row As DataRow In productTable.Rows
+            productsDiscountStatus(row("PRODUCT_NAME").ToString()) = If(row("DISCOUNT") IsNot DBNull.Value AndAlso row("DISCOUNT").ToString().Trim().ToUpper() = "DISCOUNT", True, False)
+        Next
+
+        cmbproductName_SelectedIndexChanged(Nothing, EventArgs.Empty)
     End Sub
 
     Private Function TransactionExists(transactionId As Integer) As Boolean
@@ -311,21 +334,37 @@ Public Class salesform
     Private Sub btnadd_Click(sender As Object, e As EventArgs) Handles btnadd.Click
         Try
             connection.Open()
-            Dim sellingprice As Integer
-            Using cmd As New SqlCommand("Select * from tblitemm WHERE ITEM_ID = '" & cmbproductname.SelectedValue & "'", connection)
-                Dim reader As SqlDataReader = cmd.ExecuteReader
-                If reader.Read() Then
-                    sellingprice = Convert.ToInt32(reader("sellingprice"))
-                    gridviewsale.Rows.Add(cmbproductname.SelectedValue, cmbproductname.Text, sellingprice, txtqty.Text, (Val(sellingprice) * Val(txtqty.Text)))
-                End If
-                reader.Close()
-            End Using
-            connection.Close()
+            Dim sellingPrice As Decimal
+            Dim discountAmount As Decimal = 0
 
+            ' Retrieve selling price and discount amount
+            Using cmd As New SqlCommand("SELECT sellingprice FROM tblitemm WHERE ITEM_ID = @itemId", connection)
+                cmd.Parameters.AddWithValue("@itemId", cmbproductname.SelectedValue)
+                sellingPrice = Convert.ToDecimal(cmd.ExecuteScalar())
+            End Using
+
+            Dim discountId As Integer = Convert.ToInt32(cmbdiscount.SelectedValue)
+            If discountId <> 0 Then
+                discountAmount = GetDiscountAmount(discountId)
+            End If
+
+            ' Calculate the discount amount
+            Dim discountValue As Decimal = sellingPrice * (discountAmount / 100)
+
+            Dim discountedPrice As Decimal = sellingPrice - discountValue
+
+            Dim totalAmount As Decimal = discountedPrice * Convert.ToDecimal(txtqty.Text)
+
+            gridviewsale.Rows.Add(cmbproductname.SelectedValue, cmbproductname.Text, discountedPrice, txtqty.Text, totalAmount)
+
+            connection.Close()
         Catch ex As Exception
             MsgBox(ex.Message)
+        Finally
+            connection.Close()
         End Try
     End Sub
+
     Dim currentDate As DateTime = DateTime.Now
     Dim dateString As String = currentDate.ToString("yyyy-MM-dd")
 
@@ -379,6 +418,8 @@ Public Class salesform
                     Return
                 End If
             Next
+
+
 
             For Each row As DataGridViewRow In gridviewsale.Rows
                 Using cmd As New SqlCommand("INSERT INTO tbsale(transactionID,ITEM_ID,Quantity,amount,price) VALUES (@transactionID,@ITEM_ID,@Quantity,@amount,@price)", connection)

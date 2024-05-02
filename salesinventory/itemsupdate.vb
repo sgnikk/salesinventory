@@ -1,6 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Public Class itemsupdate
-    Dim connectionString As String = "Data Source=DESKTOP-1A0SD84\SQLEXPRESS;Initial Catalog=salesinventory;Integrated Security=True"
+    Dim connectionString As String = Module1.connectionStrings
 
     Private Sub Guna2Button2_Click(sender As Object, e As EventArgs) Handles Guna2Button2.Click
         Me.Close()
@@ -13,11 +13,19 @@ Public Class itemsupdate
         Else
             discount = "No Discount"
         End If
+
+        Dim isexpirable As String
+        If Guna2CheckBox2.Checked Then
+            isexpirable = "Yex"
+        Else
+            isexpirable = "No"
+        End If
+
         Using conn As New SqlConnection(connectionString)
             conn.Open()
             Using transaction As SqlTransaction = conn.BeginTransaction
                 Dim query As String = "UPDATE tblitemm SET PRODUCT_NAME = @pname, DESCRIPTION = @desc,CATEGORY_ID = @cid, 
-                MEDTYPE_ID = @mid, COSTPRICE_BYPIECE = @cprice, discount = @discount  WHERE ITEM_ID = @itemID"
+                MEDTYPE_ID = @mid, COSTPRICE_BYPIECE = @cprice, discount = @discount, expirable = @exp, sellingprice = @sprice  WHERE ITEM_ID = @itemID"
                 Using cmdupate As New SqlCommand(query, conn, transaction)
                     cmdupate.Parameters.AddWithValue("@pname", txtproductname.Text)
                     cmdupate.Parameters.AddWithValue("@desc", txtdescription.Text)
@@ -26,6 +34,8 @@ Public Class itemsupdate
                     cmdupate.Parameters.AddWithValue("@cprice", txtcpricepiece.Text)
                     cmdupate.Parameters.AddWithValue("@itemID", txtid.Text)
                     cmdupate.Parameters.AddWithValue("@discount", discount)
+                    cmdupate.Parameters.AddWithValue("@exp", isexpirable)
+                    cmdupate.Parameters.AddWithValue("@sprice", txtsprice.Text)
                     cmdupate.ExecuteNonQuery()
                     Try
                         Dim rowsAffected As Integer = cmdupate.ExecuteNonQuery()

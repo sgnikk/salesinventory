@@ -26,6 +26,12 @@ Public Class addtype
     End Sub
 
     Private Sub btnadd_Click(sender As Object, e As EventArgs) Handles btnadd.Click
+
+        If MedicineTypeExists(txttype.Text) Then
+            MessageBox.Show("Medicine type with the same name already exists. Please enter a different name.")
+            Return
+        End If
+
         Try
             OpenConnection()
             Using cmdinsert As New SqlCommand("INSERT INTO tblmedtype (MEDICINE_TYPE) VALUES (@medtype)", connection)
@@ -51,4 +57,19 @@ Public Class addtype
     Private Sub txttype_TextChanged(sender As Object, e As EventArgs) Handles txttype.TextChanged
         ValidateInput(txttype)
     End Sub
+
+    Private Function MedicineTypeExists(medTypeName As String) As Boolean
+        Dim query As String = "SELECT COUNT(*) FROM tblmedtype WHERE MEDICINE_TYPE = @medTypeName"
+        Dim count As Integer
+
+        Using connection As New SqlConnection(Module1.connectionStrings)
+            Using cmd As New SqlCommand(query, connection)
+                cmd.Parameters.AddWithValue("@medTypeName", medTypeName)
+                connection.Open()
+                count = Convert.ToInt32(cmd.ExecuteScalar())
+            End Using
+        End Using
+
+        Return count > 0
+    End Function
 End Class

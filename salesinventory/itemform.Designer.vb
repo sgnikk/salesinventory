@@ -41,7 +41,7 @@ Partial Class itemform
         Me.txtcpricepiece = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Guna2CheckBox2 = New Guna.UI2.WinForms.Guna2CheckBox()
-        Me.Guna2TextBox1 = New Guna.UI2.WinForms.Guna2TextBox()
+        Me.txtsprice = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Guna2CheckBox1 = New Guna.UI2.WinForms.Guna2CheckBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
@@ -319,7 +319,7 @@ Partial Class itemform
         Me.Panel1.Controls.Add(Me.Guna2CheckBox2)
         Me.Panel1.Controls.Add(Me.Label8)
         Me.Panel1.Controls.Add(Me.txtproductname)
-        Me.Panel1.Controls.Add(Me.Guna2TextBox1)
+        Me.Panel1.Controls.Add(Me.txtsprice)
         Me.Panel1.Controls.Add(Me.Label4)
         Me.Panel1.Controls.Add(Me.Guna2CheckBox1)
         Me.Panel1.Controls.Add(Me.txtcpricepiece)
@@ -357,30 +357,30 @@ Partial Class itemform
         Me.Guna2CheckBox2.UncheckedState.BorderThickness = 0
         Me.Guna2CheckBox2.UncheckedState.FillColor = System.Drawing.Color.FromArgb(CType(CType(125, Byte), Integer), CType(CType(137, Byte), Integer), CType(CType(149, Byte), Integer))
         '
-        'Guna2TextBox1
+        'txtsprice
         '
-        Me.Guna2TextBox1.Animated = True
-        Me.Guna2TextBox1.BorderColor = System.Drawing.Color.Black
-        Me.Guna2TextBox1.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.Guna2TextBox1.DefaultText = ""
-        Me.Guna2TextBox1.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
-        Me.Guna2TextBox1.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
-        Me.Guna2TextBox1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
-        Me.Guna2TextBox1.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
-        Me.Guna2TextBox1.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.Guna2TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Italic)
-        Me.Guna2TextBox1.ForeColor = System.Drawing.Color.Black
-        Me.Guna2TextBox1.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.Guna2TextBox1.Location = New System.Drawing.Point(469, 174)
-        Me.Guna2TextBox1.Margin = New System.Windows.Forms.Padding(4)
-        Me.Guna2TextBox1.Name = "Guna2TextBox1"
-        Me.Guna2TextBox1.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.Guna2TextBox1.PlaceholderForeColor = System.Drawing.Color.Gray
-        Me.Guna2TextBox1.PlaceholderText = "Price"
-        Me.Guna2TextBox1.SelectedText = ""
-        Me.Guna2TextBox1.Size = New System.Drawing.Size(360, 36)
-        Me.Guna2TextBox1.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material
-        Me.Guna2TextBox1.TabIndex = 29
+        Me.txtsprice.Animated = True
+        Me.txtsprice.BorderColor = System.Drawing.Color.Black
+        Me.txtsprice.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.txtsprice.DefaultText = ""
+        Me.txtsprice.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+        Me.txtsprice.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+        Me.txtsprice.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.txtsprice.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.txtsprice.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.txtsprice.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Italic)
+        Me.txtsprice.ForeColor = System.Drawing.Color.Black
+        Me.txtsprice.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.txtsprice.Location = New System.Drawing.Point(469, 174)
+        Me.txtsprice.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtsprice.Name = "txtsprice"
+        Me.txtsprice.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.txtsprice.PlaceholderForeColor = System.Drawing.Color.Gray
+        Me.txtsprice.PlaceholderText = "Price"
+        Me.txtsprice.SelectedText = ""
+        Me.txtsprice.Size = New System.Drawing.Size(360, 36)
+        Me.txtsprice.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material
+        Me.txtsprice.TabIndex = 29
         '
         'Label4
         '
@@ -460,7 +460,7 @@ Partial Class itemform
     Friend WithEvents txtcpricepiece As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Guna2CheckBox1 As Guna.UI2.WinForms.Guna2CheckBox
-    Friend WithEvents Guna2TextBox1 As Guna.UI2.WinForms.Guna2TextBox
+    Friend WithEvents txtsprice As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Label4 As Label
     Friend WithEvents Guna2CheckBox2 As Guna.UI2.WinForms.Guna2CheckBox
     Friend WithEvents Panel2 As Panel

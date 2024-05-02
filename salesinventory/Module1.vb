@@ -2,6 +2,7 @@
 
 Module Module1
     Public connectionStrings As String = "Data Source=DESKTOP-1A0SD84\SQLEXPRESS;Initial Catalog=salesinventory;Integrated Security=True"
+
     Public connection As New SqlConnection(connectionStrings)
 
     Public Sub OpenConnection()
@@ -24,4 +25,5 @@ Module Module1
             Console.WriteLine("Error closing connection: " & ex.Message)
         End Try
     End Sub
+
 End Module

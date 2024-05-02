@@ -81,14 +81,14 @@ Public Class Form1
         itemupdatebutton.Width = 100
         itemupdatebutton.Text = "Update"
         itemupdatebutton.Name = "Update"
-        itemsgridview.Columns.Insert(8, itemupdatebutton)
+        itemsgridview.Columns.Insert(10, itemupdatebutton)
         Dim itemdeletebutton As New DataGridViewButtonColumn
         itemdeletebutton.UseColumnTextForButtonValue = True
         itemdeletebutton.HeaderText = "Action"
         itemdeletebutton.Width = 100
         itemdeletebutton.Text = "Delete"
         itemdeletebutton.Name = "Delete"
-        itemsgridview.Columns.Insert(9, itemdeletebutton)
+        itemsgridview.Columns.Insert(11, itemdeletebutton)
 
 
         Dim categoryupdatebutton As New DataGridViewButtonColumn
@@ -278,11 +278,13 @@ Public Class Form1
             i.ITEM_ID,
             i.PRODUCT_NAME AS 'Product Name',
             i.DESCRIPTION AS 'Description',
-            i.COSTPRICE_BYPIECE AS 'Cost Price By Piece',
+            i.COSTPRICE_BYPIECE AS 'Cost Price',
+            i.sellingprice AS 'Selling Price',
             ISNULL(c.CATEGORY_NAME, 'NONE') AS 'Category',
             ISNULL(m.MEDICINE_TYPE, 'NONE') AS 'Medicine Type',
             I.BARCODE AS 'Bar Code',
-            I.discount AS 'Discount'
+            I.discount AS 'Discount',
+            I.expirable AS 'Expirable'
         FROM 
             tblitemm i 
         LEFT JOIN 
@@ -356,7 +358,7 @@ Public Class Form1
         Using connection As New SqlConnection(connectionStrings)
             connection.Open()
 
-            Dim query As String = "SELECT  ITEM_ID,PRODUCT_NAME,DESCRIPTION,CATEGORY_ID,MEDTYPE_ID,BARCODE,COSTPRICE_BYPIECE,discount
+            Dim query As String = "SELECT  ITEM_ID,PRODUCT_NAME,DESCRIPTION,CATEGORY_ID,MEDTYPE_ID,BARCODE,COSTPRICE_BYPIECE,discount,expirable
             FROM tblitemm WHERE ITEM_ID = @ItemID"
 
             Using command As New SqlCommand(query, connection)
@@ -374,6 +376,12 @@ Public Class Form1
                             itemsupdate.Guna2CheckBox1.Checked = True
                         Else
                             itemsupdate.Guna2CheckBox1.Checked = False
+                        End If
+                        Dim isexpirable As String = reader("expirable").ToString
+                        If isexpirable.ToLower() = "yes" Then
+                            itemsupdate.Guna2CheckBox2.Checked = True
+                        Else
+                            itemsupdate.Guna2CheckBox2.Checked = False
                         End If
 
                     End If
@@ -622,7 +630,6 @@ Public Class Form1
         Try
             Dim deletedSupplierName As String = ""
 
-            ' Retrieve the name of the supplier being deleted
             Using connection As New SqlConnection(connectionStrings)
                 connection.Open()
                 Dim getSupplierNameQuery As String = "SELECT SUPPLIER_NAME FROM tblsupplier WHERE SUPPLIER_ID = @supplierID"

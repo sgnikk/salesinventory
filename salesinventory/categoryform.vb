@@ -30,6 +30,7 @@ Public Class categoryform
         Dim userID As Integer = loginformm.UserID
         Dim datee As String = DateTime.Now.ToString("yyyy-MM-dd")
         Dim timee As String = DateTime.Now.ToString("HH:mm")
+        connection.Open()
         Dim action As String = $"{loggedInUsername} Added A New Category Name :'{txtname.Text} Category Description:{txtdescription.Text} '"
         Dim auditInsertQuery As String = "INSERT INTO tblaudit (users_id, actions, time, date) VALUES (@uID, @acts, @time, @date)"
         Using auditInsertCommand As New SqlCommand(auditInsertQuery, connection)
@@ -39,6 +40,7 @@ Public Class categoryform
             auditInsertCommand.Parameters.AddWithValue("@date", datee)
             auditInsertCommand.ExecuteNonQuery()
         End Using
+        connection.Open()
         Form1.AuditTrail()
     End Sub
 
