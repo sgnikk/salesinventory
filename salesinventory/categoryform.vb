@@ -40,7 +40,7 @@ Public Class categoryform
             auditInsertCommand.Parameters.AddWithValue("@date", datee)
             auditInsertCommand.ExecuteNonQuery()
         End Using
-        connection.Open()
+        connection.Close()
         Form1.AuditTrail()
     End Sub
 

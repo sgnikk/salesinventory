@@ -71,6 +71,7 @@ Public Class vatforms
         Dim userID As Integer = loginformm.UserID
         Dim datee As String = DateTime.Now.ToString("yyyy-MM-dd")
         Dim timee As String = DateTime.Now.ToString("HH:mm")
+        connection.Open()
 
         Using cmdinsert As New SqlCommand("INSERT INTO tblaudit (users_id, actions, time, date) VALUES (@uID, @acts, @time, @date)", connection)
             cmdinsert.Parameters.AddWithValue("@uID", userID)
@@ -80,6 +81,7 @@ Public Class vatforms
             cmdinsert.ExecuteNonQuery()
             Form1.AuditTrail()
         End Using
+        connection.Close()
     End Sub
 
     Private Sub vatforms_Load(sender As Object, e As EventArgs) Handles MyBase.Load
