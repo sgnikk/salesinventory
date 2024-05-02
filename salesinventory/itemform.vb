@@ -147,4 +147,15 @@ Public Class itemform
         connection.Close()
     End Sub
 
+    Private Sub itembarcode_TextChanged(sender As Object, e As EventArgs) Handles itembarcode.TextChanged
+        Dim maxLength As Integer = 13
+        Dim textBox As Guna.UI2.WinForms.Guna2TextBox = DirectCast(sender, Guna.UI2.WinForms.Guna2TextBox)
+
+        If textBox.TextLength > maxLength Then
+            textBox.Text = textBox.Text.Substring(0, maxLength) ' Trim the text to 13 characters
+        ElseIf textBox.TextLength < maxLength Then
+            textBox.Text = textBox.Text.PadRight(maxLength) ' Pad the text with spaces to make it 13 characters long
+        End If
+        ValidatesInputNumber(itembarcode)
+    End Sub
 End Class

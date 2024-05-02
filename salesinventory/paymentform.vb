@@ -6,20 +6,27 @@ Public Class paymentform
 
     Private Sub btnadd_Click(sender As Object, e As EventArgs) Handles btnadd.Click
         Try
-            ' Clear existing rows
             gridviewpayment.Rows.Clear()
-
-            ' Define columns
             gridviewpayment.Columns.Clear()
             gridviewpayment.Columns.Add("PRODUCT_NAME", "Product Name")
             gridviewpayment.Columns.Add("Quantity", "Quantity")
             gridviewpayment.Columns.Add("Price", "Price")
             gridviewpayment.Columns.Add("TotalAmount", "Total Amount")
 
-            Dim query As String = "SELECT i.PRODUCT_NAME, s.Quantity, i.sellingprice AS Price, ts.totalamount AS TotalAmount " &
-                                  "FROM tbsale s " &
-                                  "INNER JOIN tblitemm i ON s.ITEM_ID = i.ITEM_ID " &
-                                  "INNER JOIN (SELECT transactionID, totalamount FROM tblsold) ts ON s.transactionID = ts.transactionID"
+            Dim query As String = "
+            SELECT TOP 1
+                i.PRODUCT_NAME,
+                s.Quantity,
+                i.sellingprice AS Price,
+                ts.totalamount AS TotalAmount
+            FROM
+                tbsale s
+            INNER JOIN
+                tblitemm i ON s.ITEM_ID = i.ITEM_ID
+            INNER JOIN
+                (SELECT transactionID, totalamount FROM tblsold) ts ON s.transactionID = ts.transactionID
+            ORDER BY
+                s.transactionID DESC"
 
             Dim totalAmount As Decimal = 0
             Dim totalChange As Decimal = 0 ' Total change for the entire purchase
@@ -54,8 +61,6 @@ Public Class paymentform
             End Using
 
 
-
-            ' Calculate VAT and other amounts
             Dim vatRate As Decimal = GetVAT()
             Dim vatResult = CalculateVATableAndVAT(totalAmount, vatRate)
             Dim vatAbleAmount As Decimal = Math.Round(vatResult.Item1, 2)
@@ -167,6 +172,7 @@ Public Class paymentform
         Catch ex As Exception
             MessageBox.Show("Error: " & ex.Message)
         End Try
+        Form1.DisplaySale()
     End Sub
 
     Private Sub paymentform_Load(sender As Object, e As EventArgs) Handles MyBase.Load

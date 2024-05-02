@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class managesupplies
+Partial Class ManageSupplies
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -413,7 +413,7 @@ Partial Class managesupplies
         Me.Panel2.Size = New System.Drawing.Size(881, 728)
         Me.Panel2.TabIndex = 75
         '
-        'managesupplies
+        'ManageSupplies
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -439,7 +439,7 @@ Partial Class managesupplies
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.Panel2)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
-        Me.Name = "managesupplies"
+        Me.Name = "ManageSupplies"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "managesupplies"
         Me.Panel1.ResumeLayout(False)

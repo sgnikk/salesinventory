@@ -2,7 +2,7 @@
 
 Public Class categoryform
 
-    Dim connectionString As String = "Data Source=DESKTOP-1A0SD84\SQLEXPRESS;Initial Catalog=salesinventory;Integrated Security=True"
+    Dim connectionString As String = Module1.connectionStrings
 
     Private Sub btnadd_Click(sender As Object, e As EventArgs) Handles btnadd.Click
         Dim insertQuery As String = "INSERT INTO tblcategory (CATEGORY_DESCRIPTION, CATEGORY_NAME) VALUES (@cdescription, @cname)"

@@ -1,7 +1,7 @@
 ﻿Imports System.Data.SqlClient
 
 Module Module1
-    Public connectionStrings As String = "Data Source=DESKTOP-1A0SD84\SQLEXPRESS;Initial Catalog=salesinventory;Integrated Security=True"
+    Public connectionStrings As String = "Data Source=192.168.1.100\SQLEXPRESS;Initial Catalog=salesinventory;Integrated Security=True"
 
     Public connection As New SqlConnection(connectionStrings)
 

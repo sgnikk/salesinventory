@@ -10,6 +10,7 @@ Public Class Form1
         Displaysupplies()
         populateinventory()
         discount()
+        DisplaySale()
         'Displaysold()
         AuditTrail()
         populateusers()
@@ -121,6 +122,14 @@ Public Class Form1
         vatDeletebutton.Text = "Delete"
         vatDeletebutton.Name = "Delete"
         vatGridView.Columns.Insert(4, vatDeletebutton)
+
+        Dim saleshowbutton As New DataGridViewButtonColumn
+        saleshowbutton.UseColumnTextForButtonValue = True
+        saleshowbutton.HeaderText = "Action"
+        saleshowbutton.Width = 100
+        saleshowbutton.Text = "Show"
+        saleshowbutton.Name = "Show"
+        salesgridview.Columns.Insert(2, saleshowbutton)
     End Sub
     Private Sub Guna2Button7_Click(sender As Object, e As EventArgs) Handles Guna2Button7.Click
         managesupplies.Show()
@@ -153,6 +162,35 @@ Public Class Form1
         categorygridview.DataSource = categorytable
         categorygridview.Columns("CATEGORY_ID").Visible = False
     End Sub
+
+    Public Sub DisplaySale()
+        Dim salestable As New DataTable()
+        Dim query As String = "SELECT 
+            tsold.customer_name AS 'Customer Name',
+            tsold.transactionDate
+        FROM 
+            [salesinventory].[dbo].[tbsale] AS tsale
+        INNER JOIN 
+            [salesinventory].[dbo].[tblsold] AS tsold ON tsale.transactionID = tsold.transactionID"
+        Using connection As New SqlConnection(connectionStrings)
+            connection.Open()
+            Dim adapter As New SqlDataAdapter(query, connection)
+            adapter.Fill(salestable)
+        End Using
+
+        salesgridview.DataSource = salestable
+    End Sub
+
+    Private Sub salesgridview_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles salesgridview.CellClick
+        If e.RowIndex >= 0 AndAlso e.ColumnIndex >= 0 Then
+            Dim dateBought As Date = CType(salesgridview.Rows(e.RowIndex).Cells("TransactionDate").Value, Date)
+            Dim customername As String = salesgridview.Rows(e.RowIndex).Cells("Customer Name").Value.ToString()
+            Dim viewSalesForm As New viewallsales()
+            viewSalesForm.viewsales(dateBought, customername)
+            viewSalesForm.Show()
+        End If
+    End Sub
+
 
     Public Sub discount()
         Dim discounttable As New DataTable
@@ -879,15 +917,6 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub salesgridview_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles salesgridview.CellClick
-        If e.RowIndex >= 0 AndAlso e.ColumnIndex >= 0 Then
-            Dim dateBought As Date = CType(salesgridview.Rows(e.RowIndex).Cells("Date Bought").Value, Date)
-            Dim customername As String = salesgridview.Rows(e.RowIndex).Cells("Customer Name").Value.ToString()
-            Dim viewSalesForm As New viewallsales()
-            viewSalesForm.viewsales(dateBought, customername)
-            viewSalesForm.Show()
-        End If
-    End Sub
 
 
     Private Sub Guna2Button6_Click(sender As Object, e As EventArgs) Handles Guna2Button6.Click
@@ -1293,4 +1322,38 @@ Public Class Form1
     Private Sub Guna2Button9_Click(sender As Object, e As EventArgs)
 
     End Sub
+
+    Dim dt As New DataTable
+    Dim adp As New SqlDataAdapter
+
+    Private Sub Guna2Button9_Click_1(sender As Object, e As EventArgs) Handles Guna2Button9.Click
+        ' Create a new DataTable
+        dt = New DataTable("tbsale")
+
+        ' Create a SqlConnection (replace connection string and initialize it properly)
+        Using connection As New SqlConnection(Module1.connectionStrings)
+            ' Open the connection
+            connection.Open()
+
+            ' Create a SqlCommand with the query
+            Dim query As String = "SELECT ts.customer_name, i.PRODUCT_NAME, s.Quantity, i.sellingprice AS Price, ts.totalamount AS TotalAmount, ts.transactionDate FROM tbsale s INNER JOIN tblitemm i ON s.ITEM_ID = i.ITEM_ID INNER JOIN (SELECT transactionID, transactionDate, customer_name, totalamount FROM tblsold) ts ON s.transactionID = ts.transactionID"
+
+            ' Create a SqlDataAdapter with the command and connection
+            adp = New SqlDataAdapter(query, connection)
+
+            ' Fill the DataTable with the data from the query
+            adp.Fill(dt)
+        End Using
+
+        ' Create a new instance of the Crystal Report
+        Dim crystal As New CrystalReport4
+
+        ' Set the DataSource of the Crystal Report to the filled DataTable
+        crystal.SetDataSource(dt)
+
+        ' Set the Crystal Report Viewer's ReportSource to the Crystal Report
+        CrystalReportViewer1.ReportSource = crystal
+    End Sub
+
+
 End Class

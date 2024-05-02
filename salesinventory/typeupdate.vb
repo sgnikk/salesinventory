@@ -1,6 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Public Class typeupdate
-    Dim connection As New SqlConnection("Data Source=DESKTOP-1A0SD84\SQLEXPRESS;Initial Catalog=salesinventory;Integrated Security=True")
+    Dim connection As New SqlConnection(Module1.connectionStrings)
     Private Sub Guna2Button2_Click(sender As Object, e As EventArgs) Handles Guna2Button2.Click
         Me.Close()
     End Sub

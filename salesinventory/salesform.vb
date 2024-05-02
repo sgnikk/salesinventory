@@ -334,10 +334,33 @@ Public Class salesform
     Private Sub btnadd_Click(sender As Object, e As EventArgs) Handles btnadd.Click
         Try
             connection.Open()
+
+            Dim stockTuple As Tuple(Of Integer, String) = GetAvailableStock(cmbproductname.SelectedValue)
+
+            ' Extract the available stock value from the tuple
+            Dim availableStock As Integer = stockTuple.Item1
+
+
+
+            ' Check if there's enough stock available
+            If txtqty.Text > availableStock Then
+                MsgBox("Insufficient stock available.")
+                Return
+            End If
+
+            'Dim remainingStock As Integer = availableStock - txtqty.Text
+
+            '' Update STOCK_AVAILABLE and STOCK_OUT in tblinventory
+            'Using cmdUpdate As New SqlCommand("UPDATE tblinventory SET STOCK_AVAILABLE = @RemainingStock, STOCK_OUT = STOCK_OUT + @QuantityToSell WHERE ITEM_ID = @ItemId", connection)
+            '    cmdUpdate.Parameters.AddWithValue("@RemainingStock", remainingStock)
+            '    cmdUpdate.Parameters.AddWithValue("@QuantityToSell", txtqty.Text)
+            '    cmdUpdate.Parameters.AddWithValue("@ItemId", cmbproductname.SelectedValue)
+            '    cmdUpdate.ExecuteNonQuery()
+            'End Using
+
             Dim sellingPrice As Decimal
             Dim discountAmount As Decimal = 0
 
-            ' Retrieve selling price and discount amount
             Using cmd As New SqlCommand("SELECT sellingprice FROM tblitemm WHERE ITEM_ID = @itemId", connection)
                 cmd.Parameters.AddWithValue("@itemId", cmbproductname.SelectedValue)
                 sellingPrice = Convert.ToDecimal(cmd.ExecuteScalar())
@@ -353,17 +376,20 @@ Public Class salesform
 
             Dim discountedPrice As Decimal = sellingPrice - discountValue
 
-            Dim totalAmount As Decimal = discountedPrice * Convert.ToDecimal(txtqty.Text)
+            Dim totalAmount As Decimal = discountedPrice * txtqty.Text
 
             gridviewsale.Rows.Add(cmbproductname.SelectedValue, cmbproductname.Text, discountedPrice, txtqty.Text, totalAmount)
 
-            connection.Close()
         Catch ex As Exception
             MsgBox(ex.Message)
         Finally
             connection.Close()
         End Try
     End Sub
+
+
+
+
 
     Dim currentDate As DateTime = DateTime.Now
     Dim dateString As String = currentDate.ToString("yyyy-MM-dd")
@@ -434,8 +460,9 @@ Public Class salesform
             Next
 
             For Each row As DataGridViewRow In gridviewsale.Rows
-                Using cmd As New SqlCommand("UPDATE tblinventory SET STOCK_AVAILABLE = STOCK_AVAILABLE - @Quantity WHERE ITEM_ID = @ITEM_ID", connection)
-                    cmd.Parameters.AddWithValue("@Quantity", row.Cells(2).Value) ' Use the quantity from the DataGridView
+                Using cmd As New SqlCommand("UPDATE tblinventory SET STOCK_AVAILABLE = STOCK_AVAILABLE - @Quantity, STOCK_OUT = STOCK_OUT + @sout  WHERE ITEM_ID = @ITEM_ID", connection)
+                    cmd.Parameters.AddWithValue("@Quantity", row.Cells(3).Value)
+                    cmd.Parameters.AddWithValue("@sout", txtqty.Text) ' Use the quantity from the DataGridView
                     cmd.Parameters.AddWithValue("@ITEM_ID", row.Cells(0).Value)
                     cmd.ExecuteNonQuery()
                 End Using
@@ -454,6 +481,9 @@ Public Class salesform
         End Try
     End Sub
 
-
+    Private Sub Guna2Button3_Click(sender As Object, e As EventArgs) Handles Guna2Button3.Click
+        cmbdiscount.SelectedValue = 0
+        cmbdiscount.Enabled = False
+    End Sub
 End Class
 

@@ -2,7 +2,7 @@
 
 Public Class viewallsupplies
 
-    Dim connectionstring As String = "Data Source=DESKTOP-1A0SD84\SQLEXPRESS;Initial Catalog=salesinventory;Integrated Security=True"
+    Dim connectionstring As String = Module1.connectionStrings
 
     Private Sub Guna2Button1_Click(sender As Object, e As EventArgs) Handles Guna2Button1.Click
         Me.Close()

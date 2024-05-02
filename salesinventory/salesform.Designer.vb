@@ -46,9 +46,10 @@ Partial Class salesform
         Me.txtsrchbar = New Guna.UI2.WinForms.Guna2TextBox()
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.cmbcustomername = New Guna.UI2.WinForms.Guna2TextBox()
-        Me.cmbdiscount = New Guna.UI2.WinForms.Guna2ComboBox()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.cmbdiscount = New Guna.UI2.WinForms.Guna2ComboBox()
+        Me.cmbcustomername = New Guna.UI2.WinForms.Guna2TextBox()
+        Me.Guna2Button3 = New Guna.UI2.WinForms.Guna2Button()
         Me.Panel1.SuspendLayout()
         CType(Me.gridviewsale, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
@@ -263,7 +264,7 @@ Partial Class salesform
         Me.Guna2Button1.FillColor = System.Drawing.Color.Black
         Me.Guna2Button1.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Guna2Button1.ForeColor = System.Drawing.Color.White
-        Me.Guna2Button1.Location = New System.Drawing.Point(639, 243)
+        Me.Guna2Button1.Location = New System.Drawing.Point(642, 243)
         Me.Guna2Button1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Guna2Button1.Name = "Guna2Button1"
         Me.Guna2Button1.Size = New System.Drawing.Size(95, 38)
@@ -354,6 +355,7 @@ Partial Class salesform
         'Panel2
         '
         Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel2.Controls.Add(Me.Guna2Button3)
         Me.Panel2.Controls.Add(Me.Label3)
         Me.Panel2.Controls.Add(Me.cmbdiscount)
         Me.Panel2.Controls.Add(Me.cmbcustomername)
@@ -367,6 +369,33 @@ Partial Class salesform
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(880, 705)
         Me.Panel2.TabIndex = 79
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(22, 221)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(76, 20)
+        Me.Label3.TabIndex = 81
+        Me.Label3.Text = "Discount"
+        '
+        'cmbdiscount
+        '
+        Me.cmbdiscount.BackColor = System.Drawing.Color.Transparent
+        Me.cmbdiscount.BorderColor = System.Drawing.Color.Black
+        Me.cmbdiscount.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
+        Me.cmbdiscount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbdiscount.FocusedColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbdiscount.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbdiscount.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.cmbdiscount.ForeColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(112, Byte), Integer))
+        Me.cmbdiscount.ItemHeight = 30
+        Me.cmbdiscount.Location = New System.Drawing.Point(26, 246)
+        Me.cmbdiscount.Name = "cmbdiscount"
+        Me.cmbdiscount.Size = New System.Drawing.Size(371, 36)
+        Me.cmbdiscount.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material
+        Me.cmbdiscount.TabIndex = 80
         '
         'cmbcustomername
         '
@@ -393,32 +422,21 @@ Partial Class salesform
         Me.cmbcustomername.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material
         Me.cmbcustomername.TabIndex = 79
         '
-        'cmbdiscount
+        'Guna2Button3
         '
-        Me.cmbdiscount.BackColor = System.Drawing.Color.Transparent
-        Me.cmbdiscount.BorderColor = System.Drawing.Color.Black
-        Me.cmbdiscount.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
-        Me.cmbdiscount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbdiscount.FocusedColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbdiscount.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbdiscount.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.cmbdiscount.ForeColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(112, Byte), Integer))
-        Me.cmbdiscount.ItemHeight = 30
-        Me.cmbdiscount.Location = New System.Drawing.Point(26, 246)
-        Me.cmbdiscount.Name = "cmbdiscount"
-        Me.cmbdiscount.Size = New System.Drawing.Size(371, 36)
-        Me.cmbdiscount.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material
-        Me.cmbdiscount.TabIndex = 80
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(22, 221)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(76, 20)
-        Me.Label3.TabIndex = 81
-        Me.Label3.Text = "Discount"
+        Me.Guna2Button3.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.Guna2Button3.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.Guna2Button3.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.Guna2Button3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.Guna2Button3.FillColor = System.Drawing.Color.Black
+        Me.Guna2Button3.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.Guna2Button3.ForeColor = System.Drawing.Color.White
+        Me.Guna2Button3.Location = New System.Drawing.Point(470, 244)
+        Me.Guna2Button3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Guna2Button3.Name = "Guna2Button3"
+        Me.Guna2Button3.Size = New System.Drawing.Size(126, 38)
+        Me.Guna2Button3.TabIndex = 82
+        Me.Guna2Button3.Text = "No Discount"
         '
         'salesform
         '
@@ -473,4 +491,5 @@ Partial Class salesform
     Friend WithEvents Column5 As DataGridViewTextBoxColumn
     Friend WithEvents Label3 As Label
     Friend WithEvents cmbdiscount As Guna.UI2.WinForms.Guna2ComboBox
+    Friend WithEvents Guna2Button3 As Guna.UI2.WinForms.Guna2Button
 End Class

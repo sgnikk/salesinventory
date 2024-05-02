@@ -1,6 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Public Class discountupdate
-    Dim connection As New SqlConnection("Data Source=DESKTOP-1A0SD84\SQLEXPRESS;Initial Catalog=salesinventory;Integrated Security=True")
+    Dim connection As New SqlConnection(Module1.connectionStrings)
     Private Sub btnadd_Click(sender As Object, e As EventArgs) Handles btnadd.Click
         connection.Open()
         Using cmdupdate As New SqlCommand("UPDATE tbldiscount SET discount_name = @dname, discount_amount = @damount WHERE discount_id = @did", connection)

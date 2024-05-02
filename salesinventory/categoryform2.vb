@@ -1,7 +1,7 @@
 ﻿Imports System.Data.SqlClient
 
 Public Class categoryform2
-    Dim connectionString As String = "Data Source=DESKTOP-1A0SD84\SQLEXPRESS;Initial Catalog=salesinventory;Integrated Security=True"
+    Dim connectionString As String = Module1.connectionStrings
 
     Private Sub txtname_TextChanged(sender As Object, e As EventArgs) Handles txtname.TextChanged
         ValidateInput(txtname)
